@@ -1,16 +1,15 @@
 {
   "name": "sanuu whatsapp-bot",
   "version": "1.0.0",
-  "description": "WhatsApp Bot with mini-games, YouTube download, AI, and more.",
+  "description": "WhatsApp Bot with Session ID, Phone Number, and GitHub Authentication",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "axios": "^1.2.0",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.3"
-  },
-  "author": "sanidu",
-  "license": "ISC"
+    "axios": "^1.3.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "whatsapp-web.js": "^1.18.0"
+  }
 }
