@@ -3,8 +3,6 @@ const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const express = require('express');
 const dotenv = require('dotenv');
-const axios = require('axios');
-const { exec } = require('child_process');
 
 // Load environment variables
 dotenv.config();
@@ -13,7 +11,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Initialize WhatsApp client with session handling
+// Initialize WhatsApp client
 const client = new Client({
     authStrategy: new LocalAuth({
         clientId: process.env.SESSION_ID || 'bot-session',
@@ -28,7 +26,7 @@ const client = new Client({
     restartOnAuthFail: true
 });
 
-// Generate QR code if needed
+// Generate QR code
 client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true });
     console.log('QR Code generated. Scan it using WhatsApp.');
@@ -36,7 +34,7 @@ client.on('qr', (qr) => {
 
 // WhatsApp ready state
 client.on('ready', () => {
-    console.log('WhatsApp bot is ready!');
+    console.log('WhatsApp bot SANNUU MD is ready!');
 });
 
 // Message handler
@@ -47,38 +45,36 @@ client.on('message', async (msg) => {
     switch (command.toLowerCase()) {
         case '!help':
             return msg.reply(
-                '*🤖 Available Commands:*\n\n' +
+                '*🤖 SANNUU MD Commands:*\n\n' +
                 '!help - Show this message\n' +
                 '!ping - Check bot status\n' +
-                '!weather <city> - Get weather info\n' +
-                '!sticker - Convert image to sticker\n'
+                '!time - Get current time\n' +
+                '!sticker - Convert image to sticker\n' +
+                '!echo <message> - Echo your message\n'
             );
 
         case '!ping':
-            return msg.reply('🏓 Pong!');
+            return msg.reply('🏓 Pong! SANNUU MD is active.');
 
-        case '!weather':
-            if (!args.length) {
-                return msg.reply('❌ Please specify a city. Example: !weather London');
-            }
-            try {
-                const city = args.join(' ');
-                const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.WEATHER_API_KEY}&units=metric`);
-                const { main, weather } = response.data;
-                return msg.reply(`🌤️ Weather for ${city}:\nTemperature: ${main.temp}°C\nCondition: ${weather[0].description}`);
-            } catch (error) {
-                console.error('Weather error:', error);
-                return msg.reply('❌ Error fetching weather data');
-            }
+        case '!time':
+            const currentTime = new Date().toLocaleString();
+            return msg.reply(`🕒 Current time: *${currentTime}*`);
 
         case '!sticker':
             if (!msg.hasMedia) {
-                return msg.reply('❌ Please send an image with the !sticker command');
+                return msg.reply('❌ Please send an image with the !sticker command.');
             }
             const media = await msg.downloadMedia();
             return media
                 ? msg.reply('✅ Sticker created!', { media, sendMediaAsSticker: true })
-                : msg.reply('❌ Failed to create sticker');
+                : msg.reply('❌ Failed to create sticker.');
+
+        case '!echo':
+            if (!args.length) {
+                return msg.reply('❌ Please provide a message to echo.');
+            }
+            const message = args.join(' ');
+            return msg.reply(`🔊 Echo: ${message}`);
     }
 });
 
@@ -94,18 +90,6 @@ client.initialize();
 
 // Start server
 app.get('/', (req, res) => {
-    res.send('Bot is running!');
+    res.send('SANNUU MD bot is running!');
 });
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
-// Optional Git integration for cloning a repository
-if (process.env.GIT_USER && process.env.GIT_TOKEN && process.env.GIT_REPO) {
-    const gitUrl = `https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@github.com/${process.env.GIT_USER}/${process.env.GIT_REPO}.git`;
-    exec(`git clone ${gitUrl}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error cloning repo: ${error.message}`);
-        } else {
-            console.log(`Repo cloned successfully:\n${stdout}`);
-        }
-    });
-}
