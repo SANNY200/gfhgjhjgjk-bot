@@ -1,5 +1,5 @@
 {
-  "name": "whatsapp-bot",
+  "name": "sanuu whatsapp-bot",
   "version": "1.0.0",
   "description": "WhatsApp Bot with mini-games, YouTube download, AI, and more.",
   "main": "app.js",
@@ -11,6 +11,6 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.3"
   },
-  "author": "ඔබේ නම",
+  "author": "sanidu",
   "license": "ISC"
 }
