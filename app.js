@@ -1,5 +1,7 @@
 // Import necessary modules
-const { Client, LocalAuth } = require('whatsapp-web.js');
+const clientId = "valid_client_id"; // අක්ෂර-අංක, යටිඉරි, හෝ හයිපන්
+const auth = new LocalAuth({ clientId });
+
 const express = require('express');
 const dotenv = require('dotenv');
 const axios = require('axios');
