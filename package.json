@@ -1,14 +1,16 @@
 {
   "name": "whatsapp-bot",
   "version": "1.0.0",
-  "description": "A WhatsApp bot using WhatsApp Business API",
+  "description": "WhatsApp Bot with mini-games, YouTube download, AI, and more.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "express": "^4.18.2",
-    "body-parser": "^1.20.0"
-  }
+    "axios": "^1.2.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.3"
+  },
+  "author": "ඔබේ නම",
+  "license": "ISC"
 }
